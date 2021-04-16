@@ -1,6 +1,7 @@
 # framework-friends-app
 
 A small application for viewing, searching, sorting the list of users.
+An app API: https://randomuser.me/
 
 A list of features:
 1. Pages:
