@@ -6,14 +6,15 @@ A list of features:
 1. Pages:
 * * Main
 * * A users list
+* * 1. Pagination / live loading data
+* * 2. User's card has short info
+* * 3. Search / filter users by name, age, location, email etc.
+* * 4. Sort users by name, age, date of register ( ASC / DESC ) etc.
 * * Profile page
-2. Pagination / live loading data on the users list page
-3. User's card has short info on the users list page
-4. Search / filter users by name, age, location, email etc.
-5. Sort users by name, age, date of register ( ASC / DESC ) etc.
-6. Show user's location on Google Maps in the profile page
-7. All of actions on site without reload
-8. Support address bar state
-9. Cashe requests / response
-10. Components, architect etc.
-11. Performance
+* * 1. Show user's location on Google Maps
+* * 2. Show ditailed user info
+2. All of actions on site without reload
+3. Support address bar state
+4. Cashe requests / response
+5. Components, architect etc.
+6. Performance
