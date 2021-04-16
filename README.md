@@ -9,5 +9,4 @@ A list of features:
 3. Search / filter friends by name, age, location, email etc.
 4. Sort friends by name, age, date of register ( ASC / DESC ) etc.
 5. Show ditailed friend info (first name, last name, age, email, photo, location on Google Maps etc.)
-6. All of actions on site without reload
-7. Support address bar state
+6. Support address bar state
