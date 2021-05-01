@@ -1,8 +1,10 @@
-import { friendList } from './fixtures';
+import { getRandomUserUrl } from './utils';
 
 window.dataStore = {
-  friendStore: friendList.results,
-  friends: friendList.results,
+  friendStore: null,
+  friends: {},
+  error: null,
+  isDataLoading: true,
   filters: {
     name: '',
     age: '',
@@ -11,20 +13,89 @@ window.dataStore = {
 };
 window.renderApp = renderApp;
 window.filterFriends = filterFriends;
+window.loadData = loadData;
 
 renderApp();
+performLoadingData();
 
 function renderApp() {
   document.getElementById('app-root').innerHTML = App();
 }
 
+function getUserData() {
+  return window.dataStore.friendStore;
+}
+
+function isUserDataLoaded() {
+  return Boolean(getUserData());
+}
+
+function loadData() {
+  const url = getRandomUserUrl();
+  if (!isUserDataLoaded()) {
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => ({ data }));
+  }
+
+  return Promise.resolve({});
+}
+
+function performLoadingData() {
+  window.dataStore.error = null;
+  window.dataStore.isDataLoading = true;
+  window
+    .loadData()
+    .then(({ error, data }) => {
+      window.dataStore.isDataLoading = false;
+      if (error) {
+        window.dataStore.error = error;
+      } else if (data) {
+        window.dataStore.friendStore = data.results;
+        window.dataStore.friends = data.results;
+      }
+    })
+    .catch(() => {
+      window.dataStore.error = 'Some error occurred.';
+    })
+    .finally(window.renderApp);
+}
+
 function App() {
   return `
-        ${SearchByName()}
-        ${SearchByAge()}
-        ${SearchByEmail()}
-        ${FriendList()}
+        ${SearchingFriends()}
+        ${FriendResult()}
     `;
+}
+
+function FriendResult() {
+  const { isDataLoading, error } = window.dataStore;
+  let content = '';
+  if (isDataLoading) {
+    content = 'Loading...';
+  }
+
+  if (error !== null) {
+    content = error;
+  }
+
+  if (isUserDataLoaded()) {
+    content = `${FriendList()}`;
+  }
+
+  return `
+    <div>${content}</div>
+  `;
+}
+
+function SearchingFriends() {
+  return `
+    <div>
+      ${SearchByName()}
+      ${SearchByAge()}
+      ${SearchByEmail()}
+    </div>
+  `;
 }
 
 function FriendList() {
@@ -44,7 +115,7 @@ function FriendList() {
     list = 'Not found';
   }
   return `
-        <h3>Friend list (${friends.length}):</h3>
+        <h3>Friend list (${friends.length ? friends.length : 0}):</h3>
         ${list}
     `;
 }
