@@ -29,7 +29,7 @@ export function performLoadingData() {
     .catch(() => {
       window.dataStore.error = 'Some error occurred.';
     })
-    .finally(window.renderApp);
+    .finally(renderApp);
 }
 
 export function filterFriends() {
