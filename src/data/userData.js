@@ -1,4 +1,5 @@
 import { getRandomUserUrl } from './randomUserAPI';
+import renderApp from '../framework/render';
 
 export function loadData() {
   const url = getRandomUserUrl();
@@ -14,9 +15,8 @@ export function loadData() {
 export function performLoadingData() {
   window.dataStore.error = null;
   window.dataStore.isDataLoading = true;
-  window.renderApp();
-  window
-    .loadData()
+  renderApp();
+  loadData()
     .then(({ error, data }) => {
       window.dataStore.isDataLoading = false;
       if (error) {

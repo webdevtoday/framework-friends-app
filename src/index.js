@@ -1,13 +1,13 @@
 import dataStore from './data/dataStore';
-import { loadData, filterFriends, performLoadingData } from './data/userData';
 import renderApp from './framework/render';
 import App from './components/App';
+import { performLoadingData } from './data/userData';
+
+if (module.hot) {
+  module.hot.accept();
+}
 
 window.dataStore = dataStore;
 
-window.renderApp = renderApp;
-window.filterFriends = filterFriends;
-window.loadData = loadData;
-
-renderApp(App, 'app-root');
+renderApp(App, document.getElementById('app-root'));
 performLoadingData();

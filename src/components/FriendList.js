@@ -1,25 +1,28 @@
+/** @jsx createElement */
+/** @jsxFrag createFragment */
+import { createElement, createFragment } from '../framework/element';
 import FriendCard from './FriendCard';
 
 export default function FriendList() {
   const friends = window.dataStore.friends;
-  const openListTag = '<ol>';
-  const closeListTag = '</ol>';
-  let list = '';
+  let list = <></>;
   if (friends.length > 0) {
-    list += openListTag;
-    list += friends
-      .map(friend => {
-        return `<li>${FriendCard(friend)}</li>`;
-      })
-      .join('');
-    list += closeListTag;
+    list = (
+      <ol>
+        {friends.map(friend => (
+          <li>
+            <FriendCard friend={friend} />
+          </li>
+        ))}
+      </ol>
+    );
   } else {
-    list = 'Not found';
+    list = <>Not found</>;
   }
-  return `
-        <div>
-          <h3>Friend list (${friends.length ? friends.length : 0}):</h3>
-          ${list}
-        </div>
-      `;
+  return (
+    <div>
+      <h3>Friend list ({friends.length ? friends.length : 0}):</h3>
+      {list}
+    </div>
+  );
 }

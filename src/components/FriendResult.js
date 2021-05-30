@@ -1,3 +1,6 @@
+/** @jsx createElement */
+/** @jsxFrag createFragment */
+import { createElement, createFragment } from '../framework/element';
 import FriendList from './FriendList';
 import { isUserDataLoaded } from '../data/userData';
 
@@ -13,10 +16,8 @@ export default function FriendResult() {
   }
 
   if (isUserDataLoaded()) {
-    content = `${FriendList()}`;
+    content = <FriendList />;
   }
 
-  return `
-      <div>${content}</div>
-    `;
+  return <div>{content}</div>;
 }
