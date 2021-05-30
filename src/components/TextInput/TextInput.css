@@ -1,0 +1,8 @@
+.TextInput {
+    font-size: 1em;
+    border: none;
+}
+
+.TextInput:focus {
+    outline: none;
+}

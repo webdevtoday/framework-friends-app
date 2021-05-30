@@ -1,0 +1,25 @@
+.FriendCard {
+    display: flex;
+}
+
+.FriendCard__imgContainer {
+    max-width: 128px;
+    width: 100%;
+    min-width: 100px;
+}
+
+.FriendCard__img {
+    border-radius: 10%;
+}
+
+.FriendCard__text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FriendCard__textInner {
+    padding: 5px;
+    overflow: hidden;
+}

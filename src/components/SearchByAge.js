@@ -2,21 +2,18 @@
 /** @jsxFrag createFragment */
 import { createElement, createFragment } from '../framework/element';
 import { filterFriends } from '../data/userData';
+import TextInput from './TextInput';
 export default function SearchByAge() {
   const searchedAge = window.dataStore.filters.age;
-  function performSearchByAge(age) {
-    window.dataStore.filters.age = age;
+  function performSearchByAge(e) {
+    window.dataStore.filters.age = e.target.value;
     filterFriends();
   }
   return (
-    <div>
-      <input
-        type="text"
-        value={searchedAge}
-        placeholder="Search by age..."
-        onChange={e => performSearchByAge(e.target.value)}
-      />
-      {searchedAge ? <div>Search friends with age: {searchedAge}</div> : <></>}
-    </div>
+    <TextInput
+      value={searchedAge}
+      placeholder="Search by age..."
+      onChange={performSearchByAge}
+    />
   );
 }

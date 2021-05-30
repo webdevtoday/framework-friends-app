@@ -1,0 +1,12 @@
+.App {
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+.App__leftPanel {
+    max-width: 300px;
+    border-right: 5px solid #000;
+}
+.App__mainContent {
+    width: 100%;
+}

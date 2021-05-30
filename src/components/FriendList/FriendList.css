@@ -1,0 +1,13 @@
+.FriendList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.FriendList__item {
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    min-width: 300px;
+}

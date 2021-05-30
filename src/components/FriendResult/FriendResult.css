@@ -1,0 +1,10 @@
+.FriendResult {
+    padding: 20px 30px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.FriendResult__title {
+    padding: 10px 0;
+    font-size: 2em;
+}

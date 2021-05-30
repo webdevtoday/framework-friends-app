@@ -2,23 +2,21 @@
 /** @jsxFrag createFragment */
 import { createElement, createFragment } from '../framework/element';
 import { filterFriends } from '../data/userData';
+import TextInput from './TextInput';
 export default function SearchByName() {
   const searchedName = window.dataStore.filters.name;
 
-  function performSearchByName(name) {
-    window.dataStore.filters.name = name;
+  function performSearchByName(e) {
+    window.dataStore.filters.name = e.target.value;
     filterFriends();
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        value={searchedName}
-        placeholder="Search by name..."
-        onchange={e => performSearchByName(e.target.value)}
-      />
-      {searchedName ? <div>Search friends with name: {searchedName}</div> : <></>}
-    </div>
+    <TextInput
+      type="text"
+      value={searchedName}
+      placeholder="Search by name..."
+      onChange={performSearchByName}
+    />
   );
 }
