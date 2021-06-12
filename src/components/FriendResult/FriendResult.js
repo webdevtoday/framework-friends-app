@@ -5,20 +5,17 @@ import FriendList from '../FriendList';
 import { isUserDataLoaded } from '../../data/userData';
 import styles from './FriendResult.css';
 
-export default function FriendResult() {
-  const { isDataLoading, error, friends } = window.dataStore;
+export default function FriendResult({error, isLoading, friends}) {
 
-  let content = null;
+  if (error) {
+    return <div>{error}</div>;
+  }
+  
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  if (isDataLoading) {
-    content = 'Loading...';
-  }
-  if (error !== null) {
-    content = error;
-  }
-  if (isUserDataLoaded()) {
-    content = friends.length > 0 ? <FriendList friends={friends} /> : 'Not found';
-  }
+  const content = friends.length > 0 ? <FriendList friends={friends} /> : 'Not found';
 // TODO: Go on doing this module
   return (
     <div className={styles.FriendResult}>

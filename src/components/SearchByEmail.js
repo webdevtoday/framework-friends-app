@@ -1,21 +1,14 @@
 /** @jsx createElement */
 /** @jsxFrag createFragment */
 import { createElement, createFragment } from '../framework/element';
-import { filterFriends } from '../data/userData';
 import TextInput from './TextInput';
-export default function SearchByEmail() {
-  const searchedEmail = window.dataStore.filters.email;
-
-  function performSearchByEmail(e) {
-    window.dataStore.filters.email = e.target.value;
-    filterFriends();
-  }
+export default function SearchByEmail({currentEmail, onChange}) {
   return (
     <TextInput
       type="text"
-      value={searchedEmail}
+      value={currentEmail}
       placeholder="Search by email..."
-      onChange={performSearchByEmail}
+      onChange={e => onChange(e.target.value)}
     />
   );
 }

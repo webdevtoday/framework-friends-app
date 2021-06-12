@@ -1,3 +1,5 @@
+import { createFunctionElement } from "./hooks";
+
 /**
  * Creates DOM Node. Implements jsx-parser's createElement API
  * @param {string|Function} tag - HTML tag as string or Component function
@@ -6,49 +8,49 @@
  * @returns {DocumentFragment|Element}
  */
 export const createElement = (tag, props, ...children) => {
-  if (typeof tag === 'function') {
-    /*
+    if (typeof tag === 'function') {
+        /*
             Passing children as the 2nd argument is required as jsx transformer puts component functions
             and regular tags in wrapper functions that expect children as the 2nd param
         */
-    return tag({ ...props, children }, children);
-  }
-  const element = tag === '' ? new DocumentFragment() : document.createElement(tag);
-  Object.entries(props || {}).forEach(([name, value]) => {
-    if (name.startsWith('on') && name.toLowerCase() in window) {
-      element.addEventListener(
-        name.toLowerCase().substr(2),
-        /** @type {Function} */
-        value,
-      );
-    } else {
-      try {
-        if (!(element instanceof DocumentFragment)) {
-          // Boolean attributes are considered to be true if ther're present on the element at all, regardless of their actual value
-          // https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute#example
-          if (['disable', 'checked'].includes(name) && !value) {
-            element.removeAttribute(name);
-          } else if (name.toLowerCase() === 'classname') {
-            // We want to treat both strings and arrays in a similar manner
-            const classList = typeof value === 'string' ? value.split(' ').filter(Boolean) : value;
-            element.classList.add(...classList);
-          } else {
-            element.setAttribute(
-              name,
-              /** @type {string} */
-              value,
-            );
-          }
-        }
-      } catch (e) {
-        console.error('createElement caught', e, 'on', element);
-      }
+        return createFunctionElement(tag, props, children);
     }
-  });
+    const element = tag === '' ? new DocumentFragment() : document.createElement(tag);
+    Object.entries(props || {}).forEach(([name, value]) => {
+        if (name.startsWith('on') && name.toLowerCase() in window) {
+            element.addEventListener(
+                name.toLowerCase().substr(2),
+                /** @type {Function} */
+                value
+            );
+        } else {
+            try {
+                if (!(element instanceof DocumentFragment)) {
+                    // Boolean attributes are considered to be true if ther're present on the element at all, regardless of their actual value
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute#example
+                    if (['disable', 'checked'].includes(name) && !value) {
+                        element.removeAttribute(name);
+                    } else if (name.toLowerCase() === 'classname') {
+                        // We want to treat both strings and arrays in a similar manner
+                        const classList = typeof value === 'string' ? value.split(' ').filter(Boolean) : value;
+                        element.classList.add(...classList);
+                    } else {
+                        element.setAttribute(
+                            name,
+                            /** @type {string} */
+                            value
+                        );
+                    }
+                }
+            } catch (e) {
+                console.error('createElement caught', e, 'on', element);
+            }
+        }
+    });
 
-  children.forEach(child => appendChild(element, child));
+    children.forEach(child => appendChild(element, child));
 
-  return element;
+    return element;
 };
 
 /**
@@ -57,14 +59,14 @@ export const createElement = (tag, props, ...children) => {
  * @param {Node|[Node]} child
  */
 const appendChild = (parent, child) => {
-  if (Array.isArray(child)) {
-    child.forEach(subChild => appendChild(parent, subChild));
-  } else {
-    // Skip null and undefined
-    if (child != null) {
-      parent.appendChild(child.nodeType ? child : document.createTextNode(child.toString()));
+    if (Array.isArray(child)) {
+        child.forEach(subChild => appendChild(parent, subChild));
+    } else {
+        // Skip null and undefined
+        if (child != null) {
+            parent.appendChild(child.nodeType ? child : document.createTextNode(child.toString()));
+        }
     }
-  }
 };
 
 /**
