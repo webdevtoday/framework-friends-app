@@ -1,7 +1,6 @@
-/** @jsx createElement */
-/** @jsxFrag createFragment */
-import { createElement, createFragment } from '../../framework/element';
-import { useFriends } from '../../data/customHooks';
+import React from 'react';
+import { useFriends } from '../../customHooks';
+import { AppContext } from '../../context';
 import SearchingFriends from '../SearchingFriends';
 import FriendResult from '../FriendResult/FriendResult';
 import styles from './App.css';
@@ -18,6 +17,7 @@ export default function App() {
     setCurrentEmail,
     setCurrentName,
   } = useFriends();
+
   return (
     <div className={styles.App}>
       <div className={styles.App__leftPanel}>
@@ -31,11 +31,12 @@ export default function App() {
         />
       </div>
       <div className={styles.App__mainContent}>
-        <FriendResult
-          error={error}
-          isLoading={isLoading}
-          friends={filteredFriends}
-        />
+        <AppContext.Provider value={filteredFriends}>
+          <FriendResult
+            error={error}
+            isLoading={isLoading}
+          />
+        </AppContext.Provider>
       </div>
     </div>
   );

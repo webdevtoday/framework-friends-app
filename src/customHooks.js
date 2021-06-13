@@ -1,5 +1,5 @@
-import { useEffect, useState } from "../framework/hooks";
-import { loadRandomUserData } from "./randomUserAPI";
+import { useEffect, useState } from "react";
+import { loadRandomUserData } from "./data/randomUserAPI";
 
 export const useFriends = () => {
     const [friends, setFriends] = useState([]);
@@ -20,7 +20,7 @@ export const useFriends = () => {
                 .catch(setError)
                 .finally(() => setIsLoading(false));
         }
-
+        
         if (currentName || currentAge || currentEmail) {
             let filterFriends = friends;
             if (currentName) {
@@ -43,7 +43,6 @@ export const useFriends = () => {
             setFilteredFriends(filterFriends);
         }
         if (!currentName && !currentAge && !currentEmail && !isLoading) setFilteredFriends(friends);
-
     }, [currentName, currentAge, currentEmail]);
 
     return {

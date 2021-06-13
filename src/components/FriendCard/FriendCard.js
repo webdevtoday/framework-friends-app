@@ -1,6 +1,4 @@
-/** @jsx createElement */
-/** @jsxFrag createFragment */
-import { createElement, createFragment } from '../../framework/element';
+import React from 'react';
 import styles from './FriendCard.css';
 export default function FriendCard({ friend }) {
   return (

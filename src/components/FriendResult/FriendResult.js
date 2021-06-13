@@ -1,12 +1,8 @@
-/** @jsx createElement */
-/** @jsxFrag createFragment */
-import { createElement, createFragment } from '../../framework/element';
+import React from 'react';
 import FriendList from '../FriendList';
-import { isUserDataLoaded } from '../../data/userData';
 import styles from './FriendResult.css';
 
-export default function FriendResult({error, isLoading, friends}) {
-
+export default function FriendResult({error, isLoading}) {
   if (error) {
     return <div>{error}</div>;
   }
@@ -14,13 +10,11 @@ export default function FriendResult({error, isLoading, friends}) {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-  const content = friends.length > 0 ? <FriendList friends={friends} /> : 'Not found';
-// TODO: Go on doing this module
+  
   return (
     <div className={styles.FriendResult}>
-      <h3 className={styles.FriendResult__title}>Friend list ({friends.length ? friends.length : 0}):</h3>
-      {content}
+      <h3 className={styles.FriendResult__title}>Friend list:</h3>
+      <FriendList />
     </div>
   );
 }

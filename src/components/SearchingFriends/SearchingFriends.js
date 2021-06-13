@@ -1,11 +1,8 @@
-/** @jsx createElement */
-/** @jsxFrag createFragment */
-import { createElement, createFragment } from '../../framework/element';
+import React from 'react';
 import SearchByName from '../SearchByName';
 import SearchByAge from '../SearchByAge';
 import SearchByEmail from '../SearchByEmail';
 import styles from './SearchingFriends.css';
-import { useEffect, useState } from '../../framework';
 
 export default function SearchingFriends({
   currentName,
